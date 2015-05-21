@@ -1,0 +1,80 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="container" ng-app="app" ng-controller="EquiposCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        fecha de Creacion
+                    </th>
+                    <th>
+                         activo
+                    </th>
+                    <th>
+                        Opciones
+                    </th>
+                </tr>
+
+                
+                <tr ng-repeat="item in modeloEquipos">
+                    <td>
+                       {{item.nombre}}
+                    </td>
+                    <td>
+                       {{item.fechaCreacion}}
+                    </td>
+                    <td>
+                      {{item.activo}}
+                    </td>
+                    <td>
+                        <button type="button" ng-click="Editar(item)" class="btn btn-success">Editar</button>
+                        <button type="button" ng-click="Remove(item)"  class="btn btn-danger">Eliminar</button>
+                    </td>
+                </tr>
+
+
+                <form name="form" class="css-form" novalidate>
+                    <tr ng-if="MostrarControles">
+                        <td>
+                            <input type="text" class="form-control" placeholder="Nombre" ng-model="EquipoObjeto.nombre" />
+                        </td>
+                        <td>
+                            <input type="date" ng-model="EquipoObjeto.fechaCreacion" />
+                        </td>
+                        <td>
+                            <div class="checkbox">
+
+                                <input type="checkbox" ng-model="EquipoObjeto.activo" />
+
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" ng-click="CrearActualizar()">Aceptar</button>
+                            <button type="button" class="btn btn-default" ng-click="limpiar()">Cancelar</button>
+                        </td>
+                    </tr>
+                </form>
+
+                
+            </table>
+
+            <a ng-click="MostrarCtrl(true)" class="btn btn-primary">Agregar Equipo</a>
+
+        </div>
+    </div>
+</div>
+

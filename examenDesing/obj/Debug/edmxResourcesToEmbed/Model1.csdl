@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db7c1be70e4bbf4b92a5aaa49d0069f4c0Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="equipo">
+    <Key>
+      <PropertyRef Name="idEquipo" />
+    </Key>
+    <Property Name="idEquipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="activo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="jugadors" Relationship="Self.FK_jugador_equipo" FromRole="equipo" ToRole="jugador" />
+  </EntityType>
+  <EntityType Name="jugador">
+    <Key>
+      <PropertyRef Name="idJugador" />
+    </Key>
+    <Property Name="idJugador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="activo" Type="Boolean" Nullable="false" />
+    <Property Name="idEquipo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="equipo" Relationship="Self.FK_jugador_equipo" FromRole="jugador" ToRole="equipo" />
+  </EntityType>
+  <Association Name="FK_jugador_equipo">
+    <End Role="equipo" Type="Self.equipo" Multiplicity="1" />
+    <End Role="jugador" Type="Self.jugador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="equipo">
+        <PropertyRef Name="idEquipo" />
+      </Principal>
+      <Dependent Role="jugador">
+        <PropertyRef Name="idEquipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="db7c1be70e4bbf4b92a5aaa49d0069f4c0Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="equipoes" EntityType="Self.equipo" />
+    <EntitySet Name="jugadors" EntityType="Self.jugador" />
+    <AssociationSet Name="FK_jugador_equipo" Association="Self.FK_jugador_equipo">
+      <End Role="equipo" EntitySet="equipoes" />
+      <End Role="jugador" EntitySet="jugadors" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
