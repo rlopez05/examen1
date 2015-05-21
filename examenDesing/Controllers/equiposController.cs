@@ -22,6 +22,9 @@ namespace examenDesing.Controllers
 
         public JsonResult CargarEquipos()
         {
+
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
             return Json(db.equipoes.ToList(), JsonRequestBehavior.AllowGet);
         }
 
